@@ -43,8 +43,8 @@
         <div class="content-item">
           <router-link tag="button" class="btn" :to="'/edit/' + note.id">Редактировать</router-link>
         </div>
-        <div class="content-item">
-          <button v-on:click="removeNote(note.id)">Удалить</button>
+        <div class="content-item " >
+          <button  class="btn del" v-on:click="removeNote(note.id)">Удалить</button>
         </div>
       </div>
     </div>
@@ -140,6 +140,8 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  border: 1px solid gold;
+  margin-bottom: 15px;
 }
 .header {
   margin-bottom: 20px;
@@ -169,5 +171,17 @@ li {
   justify-content: space-between;
   padding: 0.5rem 2rem;
   margin-bottom: 1rem;
+}
+.btn{
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    background: #46d7ab;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 16px;
+}
+.del{
+  background: #d40101;
 }
 </style>

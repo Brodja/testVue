@@ -1,47 +1,31 @@
 <template>
-  <form @submit.prevent="submit(note.id)">
+    <div class="form">
     <input type="text" v-model="title" />
-    <button type="submit">Создать</button>
-  </form>
+    <button type="send"  v-on:click="addTodo">Создать</button>
+  </div>
 </template>
 
 <script>
 import { mapMutations } from "vuex";
 export default {
-   computed: {
-    note() {
-      return this.$store.getters.noteById(+this.$route.params.id);
-    } 
-  },
+  props: ["note"],
   data() {
     return {
       title: "",
-    };
+    }
   },
   methods: {
-    // ...mapMutations(["addTodo"]),
-    submit(id) {
-      
-        const newTodo ={ 
-          noteId: id,
-          id: Date.now(),
-          title: this.title,
-          completed: false,
-          }
+    addTodo() {
+      const newTodo = {
+        noteId: this.note.id,
+        id: Date.now(),
+        title: this.title,
+        completed: false,
+      };
+      this.note.push(newTodo);
       this.title = ''
-      this.$store.dispatch("addTodo", newTodo, id);
+
     },
-    // submit(id) {
-    //   if (this.title.trim()) {
-    //     this.addTodo({
-    //       id: Date.now(),
-    //       title: this.title,
-    //       completed: false,
-    //     });
-    //   }
-    //   this.title = ''
-    //   this.$store.dispatch("addTodo", id);
-    // },
   },
 };
 </script>

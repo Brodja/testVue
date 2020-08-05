@@ -1,32 +1,36 @@
 <template>
   <div>
-    <ul>
+    <ul v-if="todos">
       <TodoItem
-        v-for="note of note.todos"
-        :key="note.id"
-        v-bind:note="note"
+        v-for="item of todos"
+        :key="item.id"
+        v-bind:item="item"
         v-on:removeTodo="removeTodo"
+        v-on:editTodo="editTodo"
+        v-on:checkedTodo="checkedTodo"
       />
     </ul>
+    <p v-else>Туду по этой заметке не существует</p>
   </div>
 </template>
 
 <script>
 import TodoItem from "@/components/TodoItem";
 export default {
-  computed: {
-    note() {
-      return this.$store.getters.noteById(+this.$route.params.id);
-    },
-  },
-  props: {},
+  props: ["todos"],
   components: {
     TodoItem,
   },
   methods: {
     removeTodo(id) {
-      this.$emit('removeTodo', id)
-  },
+      this.$emit("removeTodo", id);
+    },
+    editTodo(id) {
+      this.$emit("editTodo", id);
+    },
+    checkedTodo(id) {
+      this.$emit("checkedTodo", id);
+    },
   },
 };
 </script>
